@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.springmvc.mapper.BussinessMapper" >
+  <resultMap id="BaseResultMap" type="com.springmvc.pojo.Bussiness" >
+    <id column="bussinessid" property="bussinessid" jdbcType="INTEGER" />
+    <result column="bussinessname" property="bussinessname" jdbcType="VARCHAR" />
+    <result column="bussinesssex" property="bussinesssex" jdbcType="INTEGER" />
+    <result column="bussinessphone" property="bussinessphone" jdbcType="VARCHAR" />
+    <result column="bussinesscard" property="bussinesscard" jdbcType="VARCHAR" />
+    <result column="bussinessfundsnum" property="bussinessfundsnum" jdbcType="DOUBLE" />
+    <result column="bussinnessshopname" property="bussinnessshopname" jdbcType="VARCHAR" />
+    <result column="bussinesspassword" property="bussinesspassword" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    bussinessid, bussinessname, bussinesssex, bussinessphone, bussinesscard, bussinessfundsnum, 
+    bussinnessshopname, bussinesspassword
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.springmvc.pojo.BussinessExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bussiness
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bussiness
+    where bussinessid = #{bussinessid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bussiness
+    where bussinessid = #{bussinessid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.springmvc.pojo.BussinessExample" >
+    delete from bussiness
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.springmvc.pojo.Bussiness" >
+    insert into bussiness (bussinessid, bussinessname, bussinesssex, 
+      bussinessphone, bussinesscard, bussinessfundsnum, 
+      bussinnessshopname, bussinesspassword)
+    values (#{bussinessid,jdbcType=INTEGER}, #{bussinessname,jdbcType=VARCHAR}, #{bussinesssex,jdbcType=INTEGER}, 
+      #{bussinessphone,jdbcType=VARCHAR}, #{bussinesscard,jdbcType=VARCHAR}, #{bussinessfundsnum,jdbcType=DOUBLE}, 
+      #{bussinnessshopname,jdbcType=VARCHAR}, #{bussinesspassword,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.springmvc.pojo.Bussiness" >
+    insert into bussiness
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bussinessid != null" >
+        bussinessid,
+      </if>
+      <if test="bussinessname != null" >
+        bussinessname,
+      </if>
+      <if test="bussinesssex != null" >
+        bussinesssex,
+      </if>
+      <if test="bussinessphone != null" >
+        bussinessphone,
+      </if>
+      <if test="bussinesscard != null" >
+        bussinesscard,
+      </if>
+      <if test="bussinessfundsnum != null" >
+        bussinessfundsnum,
+      </if>
+      <if test="bussinnessshopname != null" >
+        bussinnessshopname,
+      </if>
+      <if test="bussinesspassword != null" >
+        bussinesspassword,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bussinessid != null" >
+        #{bussinessid,jdbcType=INTEGER},
+      </if>
+      <if test="bussinessname != null" >
+        #{bussinessname,jdbcType=VARCHAR},
+      </if>
+      <if test="bussinesssex != null" >
+        #{bussinesssex,jdbcType=INTEGER},
+      </if>
+      <if test="bussinessphone != null" >
+        #{bussinessphone,jdbcType=VARCHAR},
+      </if>
+      <if test="bussinesscard != null" >
+        #{bussinesscard,jdbcType=VARCHAR},
+      </if>
+      <if test="bussinessfundsnum != null" >
+        #{bussinessfundsnum,jdbcType=DOUBLE},
+      </if>
+      <if test="bussinnessshopname != null" >
+        #{bussinnessshopname,jdbcType=VARCHAR},
+      </if>
+      <if test="bussinesspassword != null" >
+        #{bussinesspassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.springmvc.pojo.BussinessExample" resultType="java.lang.Integer" >
+    select count(*) from bussiness
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bussiness
+    <set >
+      <if test="record.bussinessid != null" >
+        bussinessid = #{record.bussinessid,jdbcType=INTEGER},
+      </if>
+      <if test="record.bussinessname != null" >
+        bussinessname = #{record.bussinessname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bussinesssex != null" >
+        bussinesssex = #{record.bussinesssex,jdbcType=INTEGER},
+      </if>
+      <if test="record.bussinessphone != null" >
+        bussinessphone = #{record.bussinessphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bussinesscard != null" >
+        bussinesscard = #{record.bussinesscard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bussinessfundsnum != null" >
+        bussinessfundsnum = #{record.bussinessfundsnum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.bussinnessshopname != null" >
+        bussinnessshopname = #{record.bussinnessshopname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bussinesspassword != null" >
+        bussinesspassword = #{record.bussinesspassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bussiness
+    set bussinessid = #{record.bussinessid,jdbcType=INTEGER},
+      bussinessname = #{record.bussinessname,jdbcType=VARCHAR},
+      bussinesssex = #{record.bussinesssex,jdbcType=INTEGER},
+      bussinessphone = #{record.bussinessphone,jdbcType=VARCHAR},
+      bussinesscard = #{record.bussinesscard,jdbcType=VARCHAR},
+      bussinessfundsnum = #{record.bussinessfundsnum,jdbcType=DOUBLE},
+      bussinnessshopname = #{record.bussinnessshopname,jdbcType=VARCHAR},
+      bussinesspassword = #{record.bussinesspassword,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springmvc.pojo.Bussiness" >
+    update bussiness
+    <set >
+      <if test="bussinessname != null" >
+        bussinessname = #{bussinessname,jdbcType=VARCHAR},
+      </if>
+      <if test="bussinesssex != null" >
+        bussinesssex = #{bussinesssex,jdbcType=INTEGER},
+      </if>
+      <if test="bussinessphone != null" >
+        bussinessphone = #{bussinessphone,jdbcType=VARCHAR},
+      </if>
+      <if test="bussinesscard != null" >
+        bussinesscard = #{bussinesscard,jdbcType=VARCHAR},
+      </if>
+      <if test="bussinessfundsnum != null" >
+        bussinessfundsnum = #{bussinessfundsnum,jdbcType=DOUBLE},
+      </if>
+      <if test="bussinnessshopname != null" >
+        bussinnessshopname = #{bussinnessshopname,jdbcType=VARCHAR},
+      </if>
+      <if test="bussinesspassword != null" >
+        bussinesspassword = #{bussinesspassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bussinessid = #{bussinessid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.springmvc.pojo.Bussiness" >
+    update bussiness
+    set bussinessname = #{bussinessname,jdbcType=VARCHAR},
+      bussinesssex = #{bussinesssex,jdbcType=INTEGER},
+      bussinessphone = #{bussinessphone,jdbcType=VARCHAR},
+      bussinesscard = #{bussinesscard,jdbcType=VARCHAR},
+      bussinessfundsnum = #{bussinessfundsnum,jdbcType=DOUBLE},
+      bussinnessshopname = #{bussinnessshopname,jdbcType=VARCHAR},
+      bussinesspassword = #{bussinesspassword,jdbcType=VARCHAR}
+    where bussinessid = #{bussinessid,jdbcType=INTEGER}
+  </update>
+</mapper>

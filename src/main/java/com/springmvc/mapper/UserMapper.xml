@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.springmvc.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.springmvc.pojo.User" >
+    <id column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="userpassword" property="userpassword" jdbcType="VARCHAR" />
+    <result column="userphone" property="userphone" jdbcType="VARCHAR" />
+    <result column="useremail" property="useremail" jdbcType="VARCHAR" />
+    <result column="usersex" property="usersex" jdbcType="INTEGER" />
+    <result column="userfunds" property="userfunds" jdbcType="DOUBLE" />
+    <result column="usercreatetime" property="usercreatetime" jdbcType="VARCHAR" />
+    <result column="ismember" property="ismember" jdbcType="INTEGER" />
+    <result column="picturename" property="picturename" jdbcType="VARCHAR" />
+    <result column="picturepath" property="picturepath" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    userid, username, userpassword, userphone, useremail, usersex, userfunds, usercreatetime, 
+    ismember, picturename, picturepath
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.springmvc.pojo.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where userid = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where userid = #{userid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.springmvc.pojo.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.springmvc.pojo.User" useGeneratedKeys="true" keyProperty="userid">
+    insert into user (userid, username, userpassword, 
+      userphone, useremail, usersex, 
+      userfunds, usercreatetime, ismember, 
+      picturename, picturepath)
+    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{userpassword,jdbcType=VARCHAR}, 
+      #{userphone,jdbcType=VARCHAR}, #{useremail,jdbcType=VARCHAR}, #{usersex,jdbcType=INTEGER}, 
+      #{userfunds,jdbcType=DOUBLE}, #{usercreatetime,jdbcType=VARCHAR}, #{ismember,jdbcType=INTEGER}, 
+      #{picturename,jdbcType=VARCHAR}, #{picturepath,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.springmvc.pojo.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="userpassword != null" >
+        userpassword,
+      </if>
+      <if test="userphone != null" >
+        userphone,
+      </if>
+      <if test="useremail != null" >
+        useremail,
+      </if>
+      <if test="usersex != null" >
+        usersex,
+      </if>
+      <if test="userfunds != null" >
+        userfunds,
+      </if>
+      <if test="usercreatetime != null" >
+        usercreatetime,
+      </if>
+      <if test="ismember != null" >
+        ismember,
+      </if>
+      <if test="picturename != null" >
+        picturename,
+      </if>
+      <if test="picturepath != null" >
+        picturepath,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null" >
+        #{userpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userphone != null" >
+        #{userphone,jdbcType=VARCHAR},
+      </if>
+      <if test="useremail != null" >
+        #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="usersex != null" >
+        #{usersex,jdbcType=INTEGER},
+      </if>
+      <if test="userfunds != null" >
+        #{userfunds,jdbcType=DOUBLE},
+      </if>
+      <if test="usercreatetime != null" >
+        #{usercreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="ismember != null" >
+        #{ismember,jdbcType=INTEGER},
+      </if>
+      <if test="picturename != null" >
+        #{picturename,jdbcType=VARCHAR},
+      </if>
+      <if test="picturepath != null" >
+        #{picturepath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.springmvc.pojo.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userpassword != null" >
+        userpassword = #{record.userpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userphone != null" >
+        userphone = #{record.userphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useremail != null" >
+        useremail = #{record.useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usersex != null" >
+        usersex = #{record.usersex,jdbcType=INTEGER},
+      </if>
+      <if test="record.userfunds != null" >
+        userfunds = #{record.userfunds,jdbcType=DOUBLE},
+      </if>
+      <if test="record.usercreatetime != null" >
+        usercreatetime = #{record.usercreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ismember != null" >
+        ismember = #{record.ismember,jdbcType=INTEGER},
+      </if>
+      <if test="record.picturename != null" >
+        picturename = #{record.picturename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picturepath != null" >
+        picturepath = #{record.picturepath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set userid = #{record.userid,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      userpassword = #{record.userpassword,jdbcType=VARCHAR},
+      userphone = #{record.userphone,jdbcType=VARCHAR},
+      useremail = #{record.useremail,jdbcType=VARCHAR},
+      usersex = #{record.usersex,jdbcType=INTEGER},
+      userfunds = #{record.userfunds,jdbcType=DOUBLE},
+      usercreatetime = #{record.usercreatetime,jdbcType=VARCHAR},
+      ismember = #{record.ismember,jdbcType=INTEGER},
+      picturename = #{record.picturename,jdbcType=VARCHAR},
+      picturepath = #{record.picturepath,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springmvc.pojo.User" >
+    update user
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null" >
+        userpassword = #{userpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userphone != null" >
+        userphone = #{userphone,jdbcType=VARCHAR},
+      </if>
+      <if test="useremail != null" >
+        useremail = #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="usersex != null" >
+        usersex = #{usersex,jdbcType=INTEGER},
+      </if>
+      <if test="userfunds != null" >
+        userfunds = #{userfunds,jdbcType=DOUBLE},
+      </if>
+      <if test="usercreatetime != null" >
+        usercreatetime = #{usercreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="ismember != null" >
+        ismember = #{ismember,jdbcType=INTEGER},
+      </if>
+      <if test="picturename != null" >
+        picturename = #{picturename,jdbcType=VARCHAR},
+      </if>
+      <if test="picturepath != null" >
+        picturepath = #{picturepath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.springmvc.pojo.User" >
+    update user
+    set username = #{username,jdbcType=VARCHAR},
+      userpassword = #{userpassword,jdbcType=VARCHAR},
+      userphone = #{userphone,jdbcType=VARCHAR},
+      useremail = #{useremail,jdbcType=VARCHAR},
+      usersex = #{usersex,jdbcType=INTEGER},
+      userfunds = #{userfunds,jdbcType=DOUBLE},
+      usercreatetime = #{usercreatetime,jdbcType=VARCHAR},
+      ismember = #{ismember,jdbcType=INTEGER},
+      picturename = #{picturename,jdbcType=VARCHAR},
+      picturepath = #{picturepath,jdbcType=VARCHAR}
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByName" parameterType="String" resultMap="BaseResultMap">
+    select * from `user` where username = #{username}
+  </select>
+</mapper>
